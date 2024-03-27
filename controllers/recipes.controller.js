@@ -3,8 +3,12 @@ import { RecipeModel } from "../models/recipe.js";
 
 export const addRecipe = async (req, res, next) => {
   try {
+    console.log(req.body)
     //Add recipe to the data base
-    const createResult = await RecipeModel.create(req.body);
+    const createResult = await RecipeModel.create({
+      ...req.body,
+      image:req.file.filename
+    });
     //Return response
     res.status(201).json(createResult);
   } catch (error) {

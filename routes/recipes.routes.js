@@ -1,4 +1,5 @@
 import { Router } from "express";
+import multer from"multer"
 import {
   addRecipe,
   deleteRecipe,
@@ -7,10 +8,13 @@ import {
   updateRecipe,
 } from "../controllers/recipes.controller.js";
 
+//Create multer upload middelware
+const upload = multer({dest:"uploads"})
+//Create recipes router
 const router = Router();
 
 //Define Route for POST
-router.post("/recipes", addRecipe);
+router.post("/recipes", upload.single("image"), addRecipe);
 //Define Route for GET all recipes
 router.get("/recipes", getRecipes);
 //Define Route for GET by id
